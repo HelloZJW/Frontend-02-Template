@@ -47,6 +47,47 @@
 * 子类型
 * 泛型
 
-### 命令式编程的组成
+#### 命令式编程语言的组成
 
  ![语言](https://cdn.nlark.com/yuque/0/2020/png/622179/1594527258887-d264b202-e01a-43c0-a5f9-6e33ce857507.png)
+
+
+### JavaScript 的类型系统
+
+#### Number
+按照 ​IEEE 754 Double Float 标准实现的
+
+* ​以64位为例子
+  * ​Sign (1个符号位) 
+  * Exponent (11 个指数位) 
+  * Fraction (52 个精度位 )
+* 32位
+  * ​​Sign (1个符号位) 
+  * ​​Exponent (8 个指数位)
+  * ​Fraction (23 个精度位 )
+
+#### String
+
+字符串的核心概念：
+* 字符 Character
+* 码点 Code Point
+* 编码 Encoding
+  * ASCII
+  * Unicode
+  * GB
+  * UCS
+  * ISO8895
+  * BIG5
+
+#### Object
+两个核心要素 Property 和 Prototype。
+对象是属性的集合，JavaScript 的属性既可以用来描述状态，也可以用来描述行为。因为 function 也是一种属性。
+
+原型链：
+当我们访问属性时，如果遇到当前对象没有，则会沿着原型链找原型对象是否有此名称的属性，原型对象可能还是没有，因此就会有“原型链”这一说法。这一算法保证了每个对象只需要描述自己和原型的区别即可。
+
+### 其他
+
+Boolean 、 Null、 Undefined、Symbol 比较简单
+
+Symbol 用来实现属性访问的权限控制。
