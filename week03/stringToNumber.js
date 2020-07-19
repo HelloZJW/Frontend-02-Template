@@ -76,31 +76,33 @@ const stringToNumber = (str, radix) => {
 }
 
 
-console.log(stringToNumber("0xF", 16));
-console.log(stringToNumber("F", 16));
-console.log(stringToNumber("17", 8));
-console.log(stringToNumber(021, 8));
-console.log(stringToNumber("015", 10));
-console.log(stringToNumber(15.99, 10));
-console.log(stringToNumber("15,123", 10));
-console.log(stringToNumber("FXX123", 16));
-console.log(stringToNumber("1111", 2));
-console.log(stringToNumber("15 * 3"));
-console.log(stringToNumber("15e2", 10));
-console.log(stringToNumber("15px", 10));
-console.log(stringToNumber("12", 13));
+console.log(stringToNumber("10.2", 10));
+
+// console.log(stringToNumber("0xF", 16));
+// console.log(stringToNumber("F", 16));
+// console.log(stringToNumber("17", 8));
+// console.log(stringToNumber(021, 8));
+// console.log(stringToNumber("015", 10));
+// console.log(stringToNumber(15.99, 10));
+// console.log(stringToNumber("15,123", 10));
+// console.log(stringToNumber("FXX123", 16));
+// console.log(stringToNumber("1111", 2));
+// console.log(stringToNumber("15 * 3"));
+// console.log(stringToNumber("15e2", 10));
+// console.log(stringToNumber("15px", 10));
+// console.log(stringToNumber("12", 13));
 
 
-console.log(stringToNumber("Hello", 8));
-console.log(stringToNumber("22", 2));
+// console.log(stringToNumber("Hello", 8));
+// console.log(stringToNumber("22", 2));
 
-console.log(stringToNumber("-F", 16));
-console.log(stringToNumber("-0F", 16));
-console.log(stringToNumber("-0XF", 16));
-console.log(stringToNumber(-15.1, 10));
-console.log(stringToNumber(" -17", 8));
+// console.log(stringToNumber("-F", 16));
+// console.log(stringToNumber("-0F", 16));
+// console.log(stringToNumber("-0XF", 16));
+// console.log(stringToNumber(-15.1, 10));
+// console.log(stringToNumber(" -17", 8));
 
-console.log(stringToNumber(" -15", 10));
-console.log(stringToNumber("-1111", 2));
-console.log(stringToNumber("-15e1", 10));
-console.log(stringToNumber("-12", 13));
+// console.log(stringToNumber(" -15", 10));
+// console.log(stringToNumber("-1111", 2));
+// console.log(stringToNumber("-15e1", 10));
+// console.log(stringToNumber("-12", 13));
