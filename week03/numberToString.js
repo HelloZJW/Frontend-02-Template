@@ -3,18 +3,21 @@ function numberToString(number, radix) {
     if (isNaN(number)) return 'NaN';
     if (number === 0) return '0';
     if (number < 0) return '-' + numberToString(-number);
+    
     if (number === Infinity) return 'Infinity';
-
     if (!radix) radix = 10;
+
+    let integer = Math.floor(number);
+    let fraction = number - integer;
 
     const digits = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     let str = '';
     do {
-        let remainder = number % radix;
+        let remainder = integer % radix;
         str = digits[remainder] + str;
-        number = (number - remainder) / radix;
+        integer = (integer - remainder) / radix;
     }
-    while (number);
+    while (integer);
 
     return str;
 }
