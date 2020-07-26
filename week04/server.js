@@ -9,7 +9,7 @@ http.createServer((req, res) => {
     }).on('end', () => {
         console.log(JSON.stringify(body));
         res.writeHead(200, { 'Content-Type': 'text/html' });
-        res.end(`<html lang="en">
+        res.end(`<html>
     <head>
     <title>Document</title>
     </head>
