@@ -1,16 +1,8 @@
-function isMatch(string) {
-    let state = start;
-    for (const c of string) {
-        state = state(c);
-    }
-    return state === end;
-}
-
 function start(c) {
     if (c === 'a') {
         return foundA;
     } else {
-        return start(c);
+        return start;
     }
 }
 
@@ -62,8 +54,12 @@ function foundB2(c) {
     }
 }
 
+function isMatch(string) {
+    let state = start;
+    for (const c of string) {
+        state = state(c);
+    }
+    return state === end;
+}
 
-console.log(isMatch('abc', 'abcabx'));
-console.log(isMatch('abccabx', 'abcabx'));
-console.log(isMatch('abcabcabx', 'abcabx'));
-console.log(isMatch('aaabcabxaa', 'abcabx'));
+console.log(isMatch('abcabcabx'));
