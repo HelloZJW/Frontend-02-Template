@@ -1,7 +1,45 @@
+const { stat } = require("fs");
+
 let currentToken = null;
 let currentAttribute = null;
+let currentTextNode = null;
+
+let stack = [{ type: 'document', children: [] }]
 function emit(token) {
-    console.log(token);
+    if (token.type === 'text') {
+        return;
+    }
+    let top = stack[stack.length - 1];
+    if (token.type === 'startTag') {
+        let element = {
+            type: 'element',
+            children: [],
+            attributes: [],
+        }
+        element.tagName = token.tagName;
+        for (const p in token) {
+            if (p != 'tagName' && p != 'type') {
+                element.attributes.push({
+                    name: p,
+                    value: token[p]
+                });
+            }
+        }
+        top.children.push(element);
+        element.parent = token;
+        if(!token.isSelfColsing){
+            stack.push(element);
+        }
+
+        currentTextNode = null;
+    }else if(token.type === 'endTag'){
+        if(top.tagName != token.tagName){
+            throw new Error('tag start end does not match')
+        } else{
+            stack.pop();
+        }
+        currentTextNode = null;
+    }
 }
 
 const EOF = Symbol('EOF');
@@ -121,14 +159,14 @@ function afterAttributeName(c) {
         return selfClosingStartTag;
     } else if (c === '=') {
         return beforeAttributeValue;
-    } 
+    }
     else if (c === '>') {
         currentToken[currentAttribute.name] = currentAttribute.value;
         emit(currentToken);
         return data;
-    }   else if (c === EOF) {
-    
-    } else{
+    } else if (c === EOF) {
+
+    } else {
         currentToken[currentAttribute.name] = currentAttribute.value;
         currentAttribute = {
             name: '',
@@ -228,5 +266,6 @@ module.exports = {
             state = state(c);
         }
         state = state('EOF');
+        console.log(stack[0])
     }
 }
