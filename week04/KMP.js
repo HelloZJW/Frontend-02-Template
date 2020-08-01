@@ -99,8 +99,9 @@ function makeDFA(pattern = '') {
 
 function buildDFA(pat = '') {
     let M = pat.length;
-    // dp[状态][字符] = 下个状态
+    // dp[当前状态][字符] = 下个状态
     let dp = new Array(M);
+    // 初始化状态默认回到状态 0
     for (let i = 0; i < M; i++) {
         let obj = {};
         for (const ch of pat) {
@@ -108,22 +109,26 @@ function buildDFA(pat = '') {
         }
         dp[i] = obj;
     }
-    // base case
+    // base case：当前状态是0，如果遇到charAt(0)，推进一步，转移到状态1。
     dp[0][pat.charAt(0)] = 1;
     // 影子状态 X 初始为 0
     let X = 0;
+    // 穷举每一个状态遇到的每一个字符，应该往哪一个状态迁移，并储存在数组中。
     for (let j = 1; j < M; j++) {
         for (let c = 0; c < pat.length; c++) {
-            try {
-                dp[j][pat.charAt(c)] = dp[X][pat.charAt(c)];
-            } catch (error) {
-                console.log(error)
-            }
+            // 如果不匹配，状态重启
+            // 回到 X 计算重启位置
+            // X 代表上一个字符为 pat.charAt(c) 的状态
+            // 当 X=0 时，
+            dp[j][pat.charAt(c)] = dp[X][pat.charAt(c)];
         }
+        // 在状态 j 遇到第 j 个字符，往前推进
         dp[j][pat.charAt(j)] = j + 1;
         // 更新影子状态
+        // 在状态 X 遇到字符 pat.charAt(j)，
         X = dp[X][pat.charAt(j)];
     }
+
     return dp;
 }
 
@@ -134,7 +139,7 @@ function matchWithDFA(txt = '', pattern = '') {
     // pat 的初始态为 0
     let j = 0;
     for (let i = 0; i < N; i++) {
-        // 计算 pat 的下一个状态
+        // 如果在状态 j 遇到 txt 的第 i 个字符，下一个状态的值，再重新赋值给 j
         j = dp[j][txt.charAt(i)];
         // 到达终止态，返回结果
         if (j == M) return i - M + 1;
@@ -143,10 +148,13 @@ function matchWithDFA(txt = '', pattern = '') {
     return -1;
 }
 
-console.log('dfa', matchWithDFA('abc', 'abcabx'));
-console.log('dfa', matchWithDFA('aabccabx', 'abcabx'));
-console.log('dfa', matchWithDFA('abcabcabx', 'abcabx'));
-console.log('dfa', matchWithDFA('aaabcabxaa', 'abcabx'));
-console.log('dfa中文', matchWithDFA('啊把擦啊把擦啊把x', '啊把擦啊把x'));
-console.log('dfa中文', matchWithDFA('啊啊啊把擦啊把x啊啊', '啊把擦啊把x'));
+console.log('dfa', matchWithDFA('ababac', 'ababac'));
+
+
+// console.log('dfa', matchWithDFA('abc', 'abcabx'));
+// console.log('dfa', matchWithDFA('aabccabx', 'abcabx'));
+// console.log('dfa', matchWithDFA('abcabcabx', 'abcabx'));
+// console.log('dfa', matchWithDFA('aaabcabxaa', 'abcabx'));
+// console.log('dfa中文', matchWithDFA('啊把擦啊把擦啊把x', '啊把擦啊把x'));
+// console.log('dfa中文', matchWithDFA('啊啊啊把擦啊把x啊啊', '啊把擦啊把x'));
 
