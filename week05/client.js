@@ -1,6 +1,9 @@
 
 const net = require('net');
 const { parseHTML } = require('./parser')
+const images = require("images");
+const render = require("./render.js");
+
 
 class ChunkedBodyParser {
     constructor() {
@@ -197,5 +200,15 @@ void (async function () {
 
     let response = await request.send();
     const dom = parseHTML(response.body);
+    let viewport = images(800, 600);
+
+    render(viewport, dom);
+
+    try {
+        viewport.save("viewport.jpg")
+    } catch (error) {
+        console.log(error);
+    }
+
     console.log(dom);
 })();

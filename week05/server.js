@@ -12,7 +12,7 @@ http.createServer((req, res) => {
         res.end(`<html maaa=a attB="b">
 <head>
 <style>
-*#container{
+#container{
     width:500px;
     height:300px;
     display:flex;
